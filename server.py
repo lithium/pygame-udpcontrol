@@ -2,6 +2,8 @@
 
 
 import socket
+import pickle
+import subprocess
 
 
 
@@ -23,7 +25,29 @@ class UdpListenServer(object):
         self.running = True
         while self.running:
             data, addr = self.socket.recvfrom(self.buffer_size)
-            print("read data from (%s):\n%s" % (addr, data))
+            msg = pickle.loads(data)
+            print("read data from (%s):   %s" % (addr, msg))
+            button = msg.get('button', None)
+            if button == 'UP':
+                self.tilt_up()
+            elif button == 'DOWN':
+                self.tilt_down()
+            elif button == 'LEFT':
+                self.pan_left()
+            elif button == 'RIGHT':
+                self.pan_right()
+
+    def pan_left(self, v=300):
+        subprocess.call(["uvcdynctrl", "-s", 'Pan (relative)', str(v)])
+
+    def pan_right(self, v=300):
+        subprocess.call(["uvcdynctrl", "-s", 'Pan (relative)', str(v*-1)])
+
+    def tilt_up(self, v=300):
+        subprocess.call(["uvcdynctrl", "-s", 'Tilt (relative)', str(v)])
+
+    def tilt_down(self, v=300):
+        subprocess.call(["uvcdynctrl", "-s", 'Tilt (relative)', str(v*-1)])
 
 
 
