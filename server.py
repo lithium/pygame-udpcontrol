@@ -38,16 +38,16 @@ class UdpListenServer(object):
                 self.pan_right()
 
     def pan_left(self, v=300):
-        subprocess.call(["uvcdynctrl", "-s", 'Pan (relative)', str(v)])
+        subprocess.call(["uvcdynctrl", "-s", 'Pan (relative)', '--', str(v)])
 
     def pan_right(self, v=300):
-        subprocess.call(["uvcdynctrl", "-s", 'Pan (relative)', str(v*-1)])
-
-    def tilt_up(self, v=300):
-        subprocess.call(["uvcdynctrl", "-s", 'Tilt (relative)', str(v)])
+        subprocess.call(["uvcdynctrl", "-s", 'Pan (relative)', '--', str(v*-1)])
 
     def tilt_down(self, v=300):
-        subprocess.call(["uvcdynctrl", "-s", 'Tilt (relative)', str(v*-1)])
+        subprocess.call(["uvcdynctrl", "-s", 'Tilt (relative)', '--', str(v)])
+
+    def tilt_up(self, v=300):
+        subprocess.call(["uvcdynctrl", "-s", 'Tilt (relative)', '--', str(v*-1)])
 
 
 
