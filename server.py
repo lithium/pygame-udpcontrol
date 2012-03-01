@@ -36,6 +36,8 @@ class UdpListenServer(object):
                 self.pan_left()
             elif button == 'RIGHT':
                 self.pan_right()
+            elif button == 'START':
+                self.reset()
 
     def pan_left(self, v=300):
         subprocess.call(["uvcdynctrl", "-s", 'Pan (relative)', '--', str(v)])
@@ -48,6 +50,10 @@ class UdpListenServer(object):
 
     def tilt_up(self, v=300):
         subprocess.call(["uvcdynctrl", "-s", 'Tilt (relative)', '--', str(v*-1)])
+
+    def reset(self):
+        subprocess.call(["uvcdynctrl", "-s", 'Pan/tilt Reset', '--', 1])
+
 
 
 
