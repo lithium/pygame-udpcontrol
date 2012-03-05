@@ -52,7 +52,7 @@ class UdpListenServer(object):
         subprocess.call(["uvcdynctrl", "-s", 'Tilt (relative)', '--', str(v*-1)])
 
     def reset(self):
-        subprocess.call(["uvcdynctrl", "-s", 'Pan/tilt Reset', '--', 1])
+        subprocess.call(["uvcdynctrl", "-s", 'Pan/tilt Reset', '--', "1"])
 
 
 
